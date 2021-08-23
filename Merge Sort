@@ -1,0 +1,40 @@
+void merge_sort(int* arr, int lenght) 
+{
+	if(lenght <= 1) return;		//BASE CASE
+	//else:
+	int middle = lenght / 2;
+	int* left = arr;
+	int* right = arr + middle;
+	int lsize = middle;
+	int rsize = lenght - lsize;	
+
+	//RECURCY BEGIN HERE;
+	merge_sort(left, lsize);
+	merge_sort(right, rsize);
+	//RECURCY END HERE;
+
+	int left_i = 0, right_i = 0, buff_i = 0;
+	int* buffer = new int[lenght];
+
+	//merge two parts:
+	while(left_i < lsize && right_i < rsize) {
+		if(left[left_i] <= right[right_i]) {
+			buffer[buff_i++] = left[left_i++];
+		}
+		else {
+			buffer[buff_i++] = right[right_i++];
+		}
+	}
+	while(left_i < lsize) {
+		buffer[buff_i++] = left[left_i++];
+	}
+	while(right_i < rsize) {
+		buffer[buff_i++] = right[right_i++];
+	}
+	print_arr(buffer, lenght);
+
+	//write result to main array:
+	for(int i = 0; i < lenght; i++) {
+		arr[i] = buffer[i];
+	}
+}
