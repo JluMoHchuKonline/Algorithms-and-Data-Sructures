@@ -1,0 +1,13 @@
+#include<bits/stdc++.h>
+
+std::vector<int> prefix_substr(std::string& summary, std::string& tmp) {
+    std::string line = tmp + "$" + summary;
+    vector<int> len(line.size(), 0);
+    for(int i = 1; i < line.size(); i++) {
+        int k = len[i - 1];
+        while(k > 0 && line[i] != line[k]) k = len[k - 1];
+        if(line[i] == line[k]) k++;
+        len[i] = k;
+    }
+    return len;
+}
